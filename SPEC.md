@@ -7,7 +7,7 @@
 
 When AI can produce a finished notebook in seconds, the final `.ipynb` says
 nothing about who did the thinking. Graders see only the end state; students
-have no way to show their work. nbtrail records the *process* — edits, runs,
+have no way to show their work. nbtrail records the _process_ — edits, runs,
 errors, fixes, pastes — so a student can attach evidence of it to a submission.
 
 ## 2. Non-goals
@@ -16,7 +16,7 @@ errors, fixes, pastes — so a student can attach evidence of it to a submission
   AI". It shows what happened; humans interpret it.
 - **Not surveillance.** Logs live next to the student's notebook, recording is
   visible and pausable, and the student decides what to share.
-- **Not tamper-proof (v0.1).** It is tamper-*evident*: editing or reordering
+- **Not tamper-proof (v0.1).** It is tamper-_evident_: editing or reordering
   history breaks the hash chain. Someone with file access can still rebuild a
   whole new chain or cut events off the end. Server-side anchoring (§7) closes
   that gap in v0.2.
@@ -41,31 +41,31 @@ place and the client cannot choose hashes.
 
 One JSON object per line (JSONL). Fields set by the client:
 
-| field  | type   | meaning |
-|--------|--------|---------|
+| field  | type   | meaning                                       |
+| ------ | ------ | --------------------------------------------- |
 | `kind` | string | `session`, `snapshot`, `edit`, `run`, `paste` |
-| `ts`   | int    | client time, ms since epoch |
-| `cell` | string | cell id (absent for `session`, `snapshot`) |
+| `ts`   | int    | client time, ms since epoch                   |
+| `cell` | string | cell id (absent for `session`, `snapshot`)    |
 
 Kind-specific fields:
 
-| kind       | extra fields |
-|------------|--------------|
-| `session`  | `action`: `start` \| `pause` \| `resume` \| `stop` |
-| `snapshot` | `cells`: `[{id, type, source}]` — full notebook state (keyframe) |
+| kind       | extra fields                                                                |
+| ---------- | --------------------------------------------------------------------------- |
+| `session`  | `action`: `start` \| `pause` \| `resume` \| `stop`                          |
+| `snapshot` | `cells`: `[{id, type, source}]` — full notebook state (keyframe)            |
 | `edit`     | `delta`: Yjs text delta, list of `{retain:n}` / `{insert:s}` / `{delete:n}` |
-| `run`      | `ok`: bool, `error`: exception name or `null` |
-| `paste`    | `chars`: int — size only, the text arrives through the `edit` delta |
+| `run`      | `ok`: bool, `error`: exception name or `null`                               |
+| `paste`    | `chars`: int — size only, the text arrives through the `edit` delta         |
 
 Fields added by the server when sealing:
 
-| field    | meaning |
-|----------|---------|
-| `v`      | format version (`1`) |
-| `seq`    | 0-based position in the log |
-| `srv_ts` | server receive time, ms since epoch |
+| field    | meaning                                              |
+| -------- | ---------------------------------------------------- |
+| `v`      | format version (`1`)                                 |
+| `seq`    | 0-based position in the log                          |
+| `srv_ts` | server receive time, ms since epoch                  |
 | `prev`   | `hash` of the previous event; `"0"*64` for the first |
-| `hash`   | `sha256(canonical_json(event without "hash"))` |
+| `hash`   | `sha256(canonical_json(event without "hash"))`       |
 
 `canonical_json` = `json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)`.
 

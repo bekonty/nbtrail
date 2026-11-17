@@ -1,6 +1,6 @@
 # nbtrail
 
-**Proof of process for Jupyter.** nbtrail records *how* a notebook was built (edits, runs,
+**Proof of process for Jupyter.** nbtrail records _how_ a notebook was built (edits, runs,
 errors, fixes, pastes) into a tamper-evident, replayable log that the student owns and can
 attach to a submission.
 
@@ -69,21 +69,21 @@ JupyterLab (TypeScript)            Jupyter server (Python)            Disk
 
 The server seals events, so the browser never chooses hashes. Full format: [SPEC.md](SPEC.md).
 
-**Limits (v0.1):** the log is tamper-*evident*, not tamper-*proof*. Someone with file access can
+**Limits (v0.1):** the log is tamper-_evident_, not tamper-_proof_. Someone with file access can
 generate a brand-new chain or cut events off the end. Server-side anchoring (roadmap v0.3)
 fixes that.
 
 ## Project layout
 
-| Path | What |
-|---|---|
-| `src/recorder.ts` | Listens to one notebook: edits, runs, pastes, structure changes |
-| `src/index.ts` | Plugin: one recorder per notebook, toolbar badge, pause command, settings |
-| `nbtrail/log.py` | Hash-chained append-only log and `verify()` |
-| `nbtrail/replay.py` | `apply_delta`, `state_at` (rebuild any moment), `summarize` |
-| `nbtrail/routes.py` | `POST /nbtrail/events`, `GET /nbtrail/status` |
-| `nbtrail/cli.py` | `nbtrail verify`, `nbtrail report` |
-| `scripts/smoke_e2e.py` | Drives a real JupyterLab with Playwright and records a session |
+| Path                   | What                                                                      |
+| ---------------------- | ------------------------------------------------------------------------- |
+| `src/recorder.ts`      | Listens to one notebook: edits, runs, pastes, structure changes           |
+| `src/index.ts`         | Plugin: one recorder per notebook, toolbar badge, pause command, settings |
+| `nbtrail/log.py`       | Hash-chained append-only log and `verify()`                               |
+| `nbtrail/replay.py`    | `apply_delta`, `state_at` (rebuild any moment), `summarize`               |
+| `nbtrail/routes.py`    | `POST /nbtrail/events`, `GET /nbtrail/status`                             |
+| `nbtrail/cli.py`       | `nbtrail verify`, `nbtrail report`                                        |
+| `scripts/smoke_e2e.py` | Drives a real JupyterLab with Playwright and records a session            |
 
 ## Development
 
