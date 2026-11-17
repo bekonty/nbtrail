@@ -1,0 +1,22 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "title": "nbtrail",
+  "description": "nbtrail settings.",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "title": "Record notebooks",
+      "description": "Record a process log for every opened notebook. Takes effect after reload.",
+      "default": true
+    },
+    "flushIntervalMs": {
+      "type": "integer",
+      "title": "Send interval (ms)",
+      "description": "How often queued events are sent to the server.",
+      "minimum": 500,
+      "default": 2000
+    }
+  },
+  "additionalProperties": false
+}

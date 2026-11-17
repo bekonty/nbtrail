@@ -1,0 +1,17 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.6.5
+_src_path: https://github.com/jupyterlab/extension-template
+advanced: false
+author_email: you@example.com
+author_name: Bekzat Bolat
+has_ai_rules: false
+has_binder: false
+has_settings: true
+kind: frontend-and-server
+labextension_name: nbtrail
+project_short_description: 'Proof of process for Jupyter: a tamper-evident, replayable
+    record of how a notebook was built.'
+python_name: nbtrail
+repository: https://github.com/YOUR_USERNAME/nbtrail
+test: true
+

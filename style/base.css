@@ -1,0 +1,18 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+
+.nbtrail-badge {
+  border: none;
+  background: transparent;
+  color: var(--jp-error-color1);
+  font-size: var(--jp-ui-font-size0);
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+.nbtrail-badge.nbtrail-paused {
+  color: var(--jp-ui-font-color2);
+}
