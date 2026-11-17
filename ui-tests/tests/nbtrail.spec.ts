@@ -6,7 +6,7 @@ import { expect, test } from '@jupyterlab/galata';
  */
 test.use({ autoGoto: false });
 
-test('should emit an activation console message', async ({ page }) => {
+test('activates and starts recording', async ({ page }) => {
   const logs: string[] = [];
 
   page.on('console', message => {
@@ -15,7 +15,21 @@ test('should emit an activation console message', async ({ page }) => {
 
   await page.goto();
 
-  expect(
-    logs.filter(s => s === 'JupyterLab extension nbtrail is activated!')
-  ).toHaveLength(1);
+  await expect
+    .poll(() => logs.filter(s => s === 'nbtrail is recording').length)
+    .toBe(1);
+});
+
+test('shows the recording badge and pauses on click', async ({ page }) => {
+  await page.goto();
+  await page.notebook.createNew('badge.ipynb');
+
+  const badge = page.locator('.nbtrail-badge');
+  await expect(badge).toHaveText('● nbtrail');
+
+  await badge.click();
+  await expect(badge).toHaveText('❚❚ nbtrail paused');
+
+  await badge.click();
+  await expect(badge).toHaveText('● nbtrail');
 });
